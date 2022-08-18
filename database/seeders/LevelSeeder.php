@@ -17,9 +17,24 @@ class LevelSeeder extends Seeder
         $level = [
             [
                 'name' => 'Admin',
-                'description' => '-',
-               
-            ]
+                'description' => '-',  
+            ],
+            [
+                'name' => 'Kepala Sekolah',
+                'description' => '-',  
+            ],
+            [
+                'name' => 'Wali Kelas',
+                'description' => '-',  
+            ],
+            [
+                'name' => 'Kepegawaian',
+                'description' => '-',  
+            ],
+            [
+                'name' => 'Kesiswaan',
+                'description' => '-',  
+            ],
         ];
         foreach ($level as $row){
             Level::create($row);

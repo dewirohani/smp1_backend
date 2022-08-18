@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudentHobbiesTable extends Migration
+class CreateDetailStudentHobbiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateStudentHobbiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_hobbies', function (Blueprint $table) {
+        Schema::create('detail_student_hobbies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('students'); 
+            $table->foreignId('student_hobbie_id')->constrained('student_hobbies');
+            $table->string('nama');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateStudentHobbiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_hobbies');
+        Schema::dropIfExists('detail_student_hobbies');
     }
 }
