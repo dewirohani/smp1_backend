@@ -16,6 +16,10 @@ class CreateResidenceStudentInformationTable extends Migration
         Schema::create('residence_student_information', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained('students');   
+            $table->string('alamat');
+            $table->string('no_hp');
+            $table->string('tinggal_dengan');
+            $table->string('jarak_kesekolah');
             $table->timestamps();
         });
     }
