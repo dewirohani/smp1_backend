@@ -15,7 +15,11 @@ class CreateStudentHobbiesTable extends Migration
     {
         Schema::create('student_hobbies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('students');   
+            $table->foreignId('student_id')->constrained('students'); 
+            $table->string('kesenian');
+            $table->string('pendidikan_jasmani');
+            $table->string('organisasi');
+            $table->string('lain-lain');
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@ class CreatePersonalStudentDetailsTable extends Migration
             $table->string('nama_panggilan');   
             $table->string('jenis_kelamin');   
             $table->string('tempat_lahir');   
-            $table->string('tanggal_lahir');   
+            $table->date('tanggal_lahir');   
             $table->string('agama');   
             $table->string('kewarganegaraan');   
             $table->string('anak_ke');   
