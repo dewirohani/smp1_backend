@@ -9,6 +9,7 @@ class GuardianStudentInformation extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'student_id',
         'nama',
         'tempat_lahir',
         'tanggal_lahir',
