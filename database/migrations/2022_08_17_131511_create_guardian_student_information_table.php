@@ -17,6 +17,17 @@ class CreateGuardianStudentInformationTable extends Migration
         Schema::create('guardian_student_information', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained('students');   
+            $table->string('name');
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
+            $table->string('agama');
+            $table->string('kewarganegaraan');
+            $table->string('hubungan_keluarga');
+            $table->string('ijazah_tertinggi');
+            $table->string('pekerjaan');
+            $table->string('penghasilan');
+            $table->string('alamat_rumah');
+            $table->string('no_hp');
             $table->timestamps();
         });
     }
