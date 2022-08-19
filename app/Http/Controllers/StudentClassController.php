@@ -3,83 +3,97 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentClass;
+use App\Http\Requests\StudentClassRequest;
 use Illuminate\Http\Request;
 
 class StudentClassController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function index()
     {
-        //
+        $student_class = StudentClass::all();
+        return response()->json([
+            "success" => true,
+            "student_classes" => $student_class
+        ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StudentClassRequest $request)
     {
-        //
+        $data   = $request->validated();
+        $studentClass = StudentClass::create($data);
+
+        if($studentClass){
+            return response()->json([
+                "success" => true,
+                "message" => "$studentClass->nama Berhasil Ditambah"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Kelas Gagal Ditambah",
+        ],409);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\StudentClass  $studentClass
-     * @return \Illuminate\Http\Response
-     */
     public function show(StudentClass $studentClass)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\StudentClass  $studentClass
-     * @return \Illuminate\Http\Response
-     */
     public function edit(StudentClass $studentClass)
     {
-        //
+        return response()->json([
+            "success" => true,
+            "studentClass" => $studentClass
+        ],200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\StudentClass  $studentClass
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, StudentClass $studentClass)
     {
-        //
+        $data   = $request->all();
+        $studentClass->updateOrCreate(
+            [
+                'kode' => $data['kode'],
+            ],
+            [
+                'nama' => $data['nama'], 
+                'deskripsi' => $data['deskripsi'], 
+            ]
+        );
+
+        if($studentClass){
+            return response()->json([
+                "success" => true,
+                "message" => "$studentClass->nama Berhasil Diubah"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Kelas Gagal Diubah",
+        ],409);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\StudentClass  $studentClass
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(StudentClass $studentClass)
     {
-        //
+        $studentClass->delete();
+
+        if($studentClass){
+            return response()->json([
+                "success" => true,
+                "message" => "Kelas Berhasil Dihapus"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Kelas Gagal Dihapus"
+        ], 409);
     }
 }

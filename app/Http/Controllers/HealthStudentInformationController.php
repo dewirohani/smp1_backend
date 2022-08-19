@@ -3,83 +3,106 @@
 namespace App\Http\Controllers;
 
 use App\Models\HealthStudentInformation;
+use App\Http\Requests\HealthStudentInformationRequest;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class HealthStudentInformationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
+        $healthStudentInformation = HealthStudentInformation::all();
+        return response()->json([
+            "success" => true,
+            "healthStudentInformations" => $healthStudentInformation
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+ 
+    public function store(HealthStudentInformationRequest $request)
     {
-        //
+        $data   = $request->validated();
+        $healthStudentInformation = HealthStudentInformation::create($data);
+
+        if($healthStudentInformation){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Ditambah"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Ditambah",
+        ],409);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\HealthStudentInformation  $healthStudentInformation
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show(HealthStudentInformation $healthStudentInformation)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\HealthStudentInformation  $healthStudentInformation
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(HealthStudentInformation $healthStudentInformation)
     {
-        //
+        return response()->json([
+            "success" => true,
+            "healthStudentInformation" => $healthStudentInformation
+        ],200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\HealthStudentInformation  $healthStudentInformation
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function update(Request $request, HealthStudentInformation $healthStudentInformation)
     {
-        //
+        $data   = $request->all();
+        $healthStudentInformation->update(
+           
+            [
+                'student_id' => $data['student_id'], 
+                'gol_darah' => $data['gol_darah'], 
+                'riwayat_penyakit' => $data['riwayat_penyakit'], 
+                'kelainan_jasmani' => $data['kelainan_jasmani'], 
+                'tinggi_badan' => $data['tinggi_badan'], 
+                'berat_badan' => $data['berat_badan'],                 
+            ]
+        );
+
+        if($healthStudentInformation){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Diupdate"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Diupdate",
+        ],409);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\HealthStudentInformation  $healthStudentInformation
-     * @return \Illuminate\Http\Response
-     */
+  
     public function destroy(HealthStudentInformation $healthStudentInformation)
     {
-        //
+        $healthStudentInformation->delete();
+
+        if($healthStudentInformation){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Dihapus"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Dihapus"
+        ], 400);
     }
 }

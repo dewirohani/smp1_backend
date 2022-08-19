@@ -3,83 +3,105 @@
 namespace App\Http\Controllers;
 
 use App\Models\ResidenceStudentInformation;
+use App\Http\Requests\ResidenceStudentInformationRequest;
 use Illuminate\Http\Request;
 
 class ResidenceStudentInformationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
-        //
+        $residenceStudentInformation = ResidenceStudentInformation::all();
+        return response()->json([
+            "success" => true,
+            "residenceStudentInformations" => $residenceStudentInformation
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+   
+    public function store(ResidenceStudentInformationRequest $request)
     {
-        //
+        $data   = $request->validated();
+        $residenceStudentInformation = ResidenceStudentInformation::create($data);
+
+        if($residenceStudentInformation){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Ditambah"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Ditambah",
+        ],409);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ResidenceStudentInformation  $residenceStudentInformation
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(ResidenceStudentInformation $residenceStudentInformation)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ResidenceStudentInformation  $residenceStudentInformation
-     * @return \Illuminate\Http\Response
-     */
+  
     public function edit(ResidenceStudentInformation $residenceStudentInformation)
     {
-        //
+        return response()->json([
+            "success" => true,
+            "residenceStudentInformation" => $residenceStudentInformation
+        ],200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ResidenceStudentInformation  $residenceStudentInformation
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, ResidenceStudentInformation $residenceStudentInformation)
     {
-        //
+        $data   = $request->all();
+        $residenceStudentInformation->update(
+           
+            [
+                'student_id' => $data['student_id'], 
+                'alamat' => $data['asal_sekolah'], 
+                'no_hp' => $data['no_hp'], 
+                'tinggal_dengan' => $data['tinggal_dengan'], 
+                'jarak_kesekolah' => $data['jarak_kesekolah'], 
+                
+            ]
+        );
+
+        if($residenceStudentInformation){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Diupdate"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Diupdate",
+        ],409);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ResidenceStudentInformation  $residenceStudentInformation
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy(ResidenceStudentInformation $residenceStudentInformation)
     {
-        //
+        $residenceStudentInformation->delete();
+
+        if($residenceStudentInformation){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Dihapus"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Dihapus"
+        ], 400);
     }
 }

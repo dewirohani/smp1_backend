@@ -3,83 +3,109 @@
 namespace App\Http\Controllers;
 
 use App\Models\PreviousEducationStudentInformation;
+use App\Http\Requests\PreviousEducationStudentInformationRequest;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class PreviousEducationStudentInformationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
+        $previousEducationStudentInformation = PreviousEducationStudentInformation::all();
+        return response()->json([
+            "success" => true,
+            "previousEducationStudentInformations" => $previousEducationStudentInformation
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+   
+    public function store(PreviousEducationStudentInformationRequest $request)
     {
-        //
+        $data   = $request->validated();
+        $previousEducationStudentInformation = PreviousEducationStudentInformation::create($data);
+
+        if($previousEducationStudentInformation){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Ditambah"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Ditambah",
+        ],409);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PreviousEducationStudentInformation  $previousEducationStudentInformation
-     * @return \Illuminate\Http\Response
-     */
     public function show(PreviousEducationStudentInformation $previousEducationStudentInformation)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PreviousEducationStudentInformation  $previousEducationStudentInformation
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(PreviousEducationStudentInformation $previousEducationStudentInformation)
     {
-        //
+        return response()->json([
+            "success" => true,
+            "previousEducationStudentInformation" => $previousEducationStudentInformation
+        ],200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PreviousEducationStudentInformation  $previousEducationStudentInformation
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, PreviousEducationStudentInformation $previousEducationStudentInformation)
     {
-        //
+        $data   = $request->all();
+        $previousEducationStudentInformation->update(
+           
+            [
+                'student_id' => $data['student_id'], 
+                'asal_sekolah' => $data['asal_sekolah'], 
+                'tanggal_skhun' => $data['tanggal_skhun'], 
+                'no_skhun' => $data['no_skhun'], 
+                'tanggal_ijazah' => $data['tanggal_ijazah'], 
+                'no_ijazah' => $data['no_ijazah'],                 
+                'pindahan_dari_sekolah' => $data['pindahan_dari_sekolah'],                 
+                'diterima_dikelas' => $data['diterima_dikelas'],                 
+                'kelompok' => $data['kelompok'],                 
+                'tanggal_penerimaan' => $data['tanggal_penerimaan'],                 
+                
+            ]
+        );
+
+        if($previousEducationStudentInformation){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Diupdate"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Diupdate",
+        ],409);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PreviousEducationStudentInformation  $previousEducationStudentInformation
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy(PreviousEducationStudentInformation $previousEducationStudentInformation)
     {
-        //
+        $previousEducationStudentInformation->delete();
+
+        if($previousEducationStudentInformation){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Dihapus"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Dihapus"
+        ], 400);
     }
 }

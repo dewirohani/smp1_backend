@@ -3,6 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\{
+    EmployeeController, GuardianStudentInformationController, HealthStudentInformationController,
+    PersonalStudentDetailController, PreviousEducationalStudentInformationController,
+    StudentClassController, StudentHobbieController, StudentController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +35,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:api')->group(function (){
     
+    Route::resource('student',                  StudentController::class);
     Route::post('/logout',                      [AuthController::class, 'logout']);
-
 });

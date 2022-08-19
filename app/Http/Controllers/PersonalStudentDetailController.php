@@ -3,83 +3,114 @@
 namespace App\Http\Controllers;
 
 use App\Models\PersonalStudentDetail;
+use App\Http\Requests\PersonalStudentDetailRequest;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class PersonalStudentDetailController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
+        $personalStudentDetail = PersonalStudentDetail::all();
+        return response()->json([
+            "success" => true,
+            "personalStudentDetails" => $personalStudentDetail
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    
+    public function store(PersonalStudentDetailRequest $request)
     {
-        //
+        $data   = $request->validated();
+        $personalStudentDetail = PersonalStudentDetail::create($data);
+
+        if($personalStudentDetail){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Ditambah"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Ditambah",
+        ],409);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PersonalStudentDetail  $personalStudentDetail
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(PersonalStudentDetail $personalStudentDetail)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PersonalStudentDetail  $personalStudentDetail
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(PersonalStudentDetail $personalStudentDetail)
     {
-        //
+        return response()->json([
+            "success" => true,
+            "personalStudentDetail" => $personalStudentDetail
+        ],200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PersonalStudentDetail  $personalStudentDetail
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, PersonalStudentDetail $personalStudentDetail)
     {
-        //
+        $data   = $request->all();
+        $personalStudentDetail->update(
+           
+            [
+                'student_id' => $data['student_id'], 
+                'nama_lengkap' => $data['nama_lengkap'], 
+                'nama_panggilan' => $data['nama_panggilan'], 
+                'jenis_kelamin' => $data['jenis_kelamin'], 
+                'tempat_lahir' => $data['tempat_lahir'], 
+                'tanggal_lahir' => $data['tanggal_lahir'], 
+                'agama' => $data['agama'], 
+                'kewarganegaraan' => $data['kewarganegaraan'], 
+                'anak_ke' => $data['anak_ke'], 
+                'jumlah_saudara_kandung' => $data['jumlah_saudara_kandung'], 
+                'jumlah_saudara_tiri' => $data['jumlah_saudara_tiri'], 
+                'jumlah_saudara_angkat' => $data['jumlah_saudara_angkat'], 
+                'status_yatim' => $data['status_yatim'], 
+                'bahasa_keseharian' => $data['bahasa_keseharian'], 
+            ]
+        );
+
+        if($personalStudentDetail){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Diupdate"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Diupdate",
+        ],409);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PersonalStudentDetail  $personalStudentDetail
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(PersonalStudentDetail $personalStudentDetail)
     {
-        //
+        $personalStudentDetail->delete();
+
+        if($personalStudentDetail){
+            return response()->json([
+                "success" => true,
+                "message" => "Data Berhasil Dihapus"
+            ],200);
+        }
+
+        return response()->json([
+                "success" => false,
+                "message" => "Data Gagal Dihapus"
+        ], 400);
     }
 }
