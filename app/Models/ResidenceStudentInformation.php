@@ -9,7 +9,6 @@ class ResidenceStudentInformation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'student_id',
         'alamat',
         'no_hp',
         'tinggal_dengan',

@@ -9,12 +9,7 @@ class StudentHobbie extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'student_id',        
+    protected $fillable = [     
     ];
     
-    public function student()
-    {
-        return $this->belongsTo(Student::class);
-    }
 }

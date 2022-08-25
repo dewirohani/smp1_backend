@@ -9,7 +9,6 @@ class PreviousEducationStudentInformation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'student_id',
         'asal_sekolah',
         'tanggal_skhun',
         'no_skhun',

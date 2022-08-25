@@ -14,14 +14,13 @@ class CreatePreviousEducationStudentInformationTable extends Migration
     public function up()
     {
         Schema::create('previous_education_student_information', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->constrained('students');   
-            $table->string('nama_asal_sekolah');
+            $table->id();  
+            $table->string('asal_sekolah');
             $table->date('tanggal_skhun');
             $table->string('no_skhun');
             $table->date('tanggal_ijazah');
             $table->string('no_ijazah');
-            $table->string('pindahan_dari_sekolah');
+            $table->string('pindahan_dari_sekolah')->nullable();
             $table->string('diterima_dikelas');
             $table->string('kelompok');
             $table->date('tanggal_penerimaan');

@@ -14,11 +14,10 @@ class CreateHealthStudentInformationTable extends Migration
     public function up()
     {
         Schema::create('health_student_information', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->constrained('students');   
-            $table->string('gol_darah', 2);
-            $table->string('riwayat_penyakit');
-            $table->string('kelainan_jasmani');
+            $table->id();   
+            $table->string('gol_darah', 2)->nullable();
+            $table->string('riwayat_penyakit')->nullable();
+            $table->string('kelainan_jasmani')->nullable();
             $table->string('tinggi_badan');
             $table->string('berat_badan');
             $table->timestamps();

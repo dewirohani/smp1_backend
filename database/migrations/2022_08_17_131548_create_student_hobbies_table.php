@@ -14,8 +14,7 @@ class CreateStudentHobbiesTable extends Migration
     public function up()
     {
         Schema::create('student_hobbies', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->constrained('students'); 
+            $table->id();            
             $table->timestamps();
         });
     }

@@ -35,6 +35,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:api')->group(function (){
     
-    Route::resource('student',                  StudentController::class);
+    Route::resource('student_classes',          StudentClassController::class);
+    Route::resource('students',                  StudentController::class);
     Route::post('/logout',                      [AuthController::class, 'logout']);
 });

@@ -20,5 +20,12 @@ class DatabaseSeeder extends Seeder
         $this->call(LevelSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(PassportInstallSeeder::class);
+        $this->call(StudentClassSeeder::class);
+        $this->call(PersonalStudentDetailSeeder::class);
+        $this->call(HealthStudentInformationSeeder::class);
+        $this->call(ResidenceStudentInformationSeeder::class);
+        $this->call(GuardianStudentInformationSeeder::class);
+        $this->call(PreviousEducationStudentInformationSeeder::class);
+        $this->call(StudentSeeder::class);
     }
 }

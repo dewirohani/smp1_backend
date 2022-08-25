@@ -9,7 +9,6 @@ class HealthStudentInformation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'student_id',
         'gol_darah',
         'riwayat_penyakit',
         'kelainan_jasmani',
